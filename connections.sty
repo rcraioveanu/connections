@@ -1,0 +1,26 @@
+% %	This mini-package was cobbled together quickly by Radu Craioveanu on Sept 06 2014.
+% %	Feel free to redistribute.
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{connections}[2014/09/06]
+
+\RequirePackage{tikz}
+
+\def\target{\@ifnextchar[{\@target}{\named@target}}
+\def\@target[#1]#2{\tikz[remember picture, inner sep=0pt,baseline,anchor=base]\node (#1) {#2};}
+\def\named@target#1{\tikz[remember picture, inner sep=0pt,baseline,anchor=base]\node (#1) {#1};}
+
+\newlength{\multitargetsep}
+\setlength{\multitargetsep}{2pt}
+
+\tikzstyle{over}=[yscale=1.5]
+\tikzstyle{depth}=[yscale=#1]
+
+\newcommand{\connect}[3][]{\tikz[remember picture, overlay, shorten <=0.5ex,shorten >=0.5ex,#1]\draw (#2.south) -- +(0,-1.5ex) -| (#3);}
+
+\newcommand{\multitarget}[2][]{\tikz[remember picture,overlay,#1]{
+\draw [color=white,line width=\multitargetsep,shorten <=0.4ex] (#2.south) -- +(0,-1.6ex);
+\draw [shorten <=0.5ex] ([xshift=-0.5\multitargetsep]v.south) |- +(-\multitargetsep,-1.5ex);
+\draw [shorten <=0.5ex] ([xshift=0.5\multitargetsep]v.south) |- +(\multitargetsep,-1.5ex);
+}}
+
+\endinput
