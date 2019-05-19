@@ -7,10 +7,15 @@
 % This is just a macro to do nice subscripts easily.
 \newcommand{\subsc}[1]{$_{\textrm{\tiny #1}}$}
 
+\title{Connections: Arrows in bracketed syntactic structures}
+\author{Radu Craioveanu}
+\date{July 2015}
 
 \begin{document}
 
-So, here's a little package that draws connections between words written in a single line. It's built on TiKZ, and works by defining each thing you want to connect with lines as a node (which I've called a \textit{target} in the package). The names of those nodes are remembered across the document.
+\maketitle
+
+This is a tiny package (more of a small set of custom commands) that draws connections between words written in a single line. It's built on TiKZ, and works by defining each thing you want to connect with lines as a node (which I've called a \textit{target} in the package). The names of those nodes are remembered across the document.
 Note that because of the way TiKZ saves these nodes, you'll often need to compile \textit{twice} for things to look right; so if the line placement looks totally crazy, just hit compile again and it should be fixed.
 
 Targets are coded with the \verb;\target[label]{text}; command. The argument in curly braces is the text that will be printed, while the optional argument defines an explicit node name. If the optional argument is absent, the package will attempt to use the node text as the label, which will be fine for most cases. The optional argument is useful if you have multiple nodes with the same text, or the node text is too long or contains characters that are illegal in node labels. In the examples below, simple nodes like T are defined with \verb;\target{T}; (implicitly labelled as \texttt{(T)}), while \textit{v}P is defined as \verb;\target[v]{\textit{v}}; (explicitly labelled as \texttt{(v)}).
@@ -31,7 +36,6 @@ The \verb;\connect[options]{node1}{node2}; command makes connections between tar
 \connect{v}{K}
 \connect[over,densely dashed]{Voice}{D}
 
-As long as you give \texttt{connect} commands after the diagram that sets up the targets, you shouldn't have problems reusing node labels between examples. The old node labels are just overwritten.
 
 If you need to connect multiple lines to the same target, you can mark that node separately as a \verb;\multitarget{node};, and do so after drawing the connections. (You may also give this the \verb;over; style if you wish, but note that it will currently only work if the lines on \textit{both} sides of the multitarget are raised. This seems like a fringe case, so I'm not implementing it more robustly now, but I can think about it if needed.)
 
@@ -47,10 +51,8 @@ If you need to connect multiple lines to the same target, you can mark that node
 \connect{v}{K}
 \multitarget{v}
 
-\clearpage
 
-
-\textbf{Clarissa}---you can define anything you like as the target, so it can be a morpheme or even just a letter. My package draws lines between \textit{separate} TiKZ environments, saving their positions to the aux file, so you don't need to have everything within the same \texttt{tikzpicture}.
+You can define anything you like as the target, so it can be a morpheme or even just a letter. The package defines a little \texttt{tikzpicture} for each target and saves its position, and then draws lines between them as a separate operation, so defining smaller parts of the words as targets can help in getting the line looking the way you want it to.
 
 \begin{verbatim}
 \ex. nee=dii=n gya'a-\target{t}=t \target{Aidan}
@@ -61,9 +63,8 @@ If you need to connect multiple lines to the same target, you can mark that node
 
 \connect[->]{t}{Aidan}
 
-I also added a tiny feature from your code, in that you can now specify a custom depth for the arrow. Previously, the package just had the \texttt{over} option, which lengthed the arrow depth 1.5 times; now, you can specify \texttt{depth=x} (where \textit{x} is an integer, with no units!) and it will adjust the depth of the arrow to whatever you like.
 
-Note that once you create a new node with the same name as a previous, the identity of the previous one gets overwritten, so you don't need to go crazy calling things \texttt{t1}, \texttt{t2}, \texttt{t3}, etc. if you are connecting multiple /-t/ morphemes. In the examples below, I didn't define any custom names, and the second connect command only pays attention to the nodes most recently named \texttt{(t)} and \texttt{(Aidan)}.
+As long as you give \texttt{connect} commands after the diagram that sets up the targets, you shouldn't have problems reusing node labels between examples. The old node labels are just overwritten. Thus, it isn't necessary to create note names like \texttt{t1}, \texttt{t2}, \texttt{t3}, etc. In the examples below, I didn't define any custom names, and the second connect command only pays attention to the nodes most recently named \texttt{(t)} and \texttt{(Aidan)}. I've also defined a custom line depth for demonstration purposes.
 
 \begin{verbatim}
 \ex. nee=dii=n gya'a-\target{t}=t \target{Aidan}
