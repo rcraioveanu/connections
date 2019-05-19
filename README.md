@@ -10,4 +10,4 @@ This is a tiny package (more of a small set of custom commands) that draws conne
 \connect[over,densely dashed]{Voice}{D}
 ```
 
-![https://github.com/rcraioveanu/connections/blob/master/connections-output.png]
+![Output of code above](https://github.com/rcraioveanu/connections/blob/master/connections-output.png)
