@@ -9,3 +9,5 @@ This is a tiny package (more of a small set of custom commands) that draws conne
 \connect{v}{K}
 \connect[over,densely dashed]{Voice}{D}
 ```
+
+!(https://github.com/rcraioveanu/connections/blob/master/connections-output.png)
